@@ -27,6 +27,8 @@ app.use('/', routes);
 
 
 var PORT = process.env.PORT || 3000;
-app.listen(PORT);
-console.log("Listening on " + PORT);
+app.listen(PORT, function (){
+	console.log("Listening on " + PORT);
+});
+
   

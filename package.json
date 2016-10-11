@@ -1,14 +1,14 @@
 {
-  "name": "sequelize",
+  "name": "burger",
   "version": "1.0.0",
   "description": "sequelize burger app",
   "main": "server.js",
   "dependencies": {
     "body-parser": "^1.15.2",
     "express": "^4.14.0",
-    "mysql": "^2.11.1",
     "express-handlebars": "^3.0.0",
-    "method-override": "^2.3.6"
+    "method-override": "^2.3.6",
+    "mysql": "^2.11.1"
   },
   "devDependencies": {},
   "scripts": {
