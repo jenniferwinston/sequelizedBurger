@@ -4,6 +4,11 @@
 module.exports = function(sequelize, Datatypes) {
 
 	var Burgers = sequelize.define('Burgers', {
+			id: {
+				type: DataTypes.INTEGER,
+				autoIncrememt: true,
+				primaryKey: true
+			},
 			name: {
 				allowNull: false,
 				type: DataTypes.STRING
