@@ -1,4 +1,5 @@
 
+
 'use strict';
 
 var fs = require('fs');
@@ -35,3 +36,5 @@ fs
 	db.Sequelize = sequelize;
 
 	module.exports = db;
+
+	

@@ -1,40 +1,44 @@
-//Inside the burgers_controller.js file, import the following:
-//Express, burger.js
-//Create the router for the app, and export the router at the end of your file.
+"use strict";
 
-var express = require('express');
-var router = express.Router();
-var burgers = require("../models/burger.js");
-var customers = require("../models/Customers.js");
+var models = require('../models');
+var sequelizeConnection = models.sequelize;
 
-	router.get('/', function(req, res){
-		res.redirect('/burgers');
-	});
+//set foriegn key check to 0 to drop table
+sequelizeConnection.query('SET FOREIGN_KEY_CHECKS = 0')
 
-	router.get('/burgers', function(req, res){
-		burgers.all(function(data){
-			res.render('index', {burgers: data});
+//drop the table
+.then(function() {
+	return sequelizeConnection.sync({force:true});
+})
+
+//create burger entry
+.then(function(){
+
+		return models.Burger.create(
+		{
+			name: 'Bacon Burger',
+			User: {
+				name: 'Jennifer'
+			}
+		},
+		{
+			include: [models.User]
 		});
-	});
+})
 
-	router.post('/burgers/create', function(req, res){
-		burgers.create(['burger_name'], [req.body.burger], function(){
-			res.redirect('/burgers');
-		});
-	});
-
-	router.put('/burgers/update/:id', function(req, res){
-
-		burgers.update(req.body.devoured, req.params.id, function(){
-			res.redirect('/burgers');
-		});
-	});
-
-	router.delete('/burgers/delete/:id', function (req, res){
-		burgers.delete(req.params.id, function(){
-			res.redirect('/burgers');
-		});
-	});
-
-module.exports = router;
+.then(function(){
+	return models.Burger.create(
+	{
+		name: 'Veggie Burger',
+		User: {
+			name: 'George'
+		}
+	},
+	{
+		include: [models.User]
+	})
+})
+.then(function(){
+	console.log("Completed");
+});
 
