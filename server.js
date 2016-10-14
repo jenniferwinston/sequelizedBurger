@@ -8,6 +8,10 @@ var app = express();
 var controller = require('./controllers/burgers_controller.js');
 var sequelize = require('sequelize');
 
+var customers = require('./models')['customers'];
+var Burgers = require('./models')['Burgers'];
+customers.sync();
+Burgers.sync();
 
 
 //Serve static content for the app from the "public" directory in the application directory.

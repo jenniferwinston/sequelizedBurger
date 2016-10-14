@@ -1,17 +1,21 @@
 'use strict';
+
+var Burgers = require('../models')['Burgers'];
 module.exports = {
   up: function(queryInterface, Sequelize) {
-    return queryInterface.createTable('burgers', {
+    return queryInterface.createTable('Burgers', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      burger - name: {
+      name: {
+        allowNull: false,
         type: Sequelize.STRING
       },
       devoured: {
+        allowNull: false,
         type: Sequelize.INTEGER
       },
       createdAt: {
@@ -22,9 +26,22 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE
       }
-    });
+    })
+    .then(function(){
+
+          Burgers.bulkCreate([{
+              name: "Chesseburger",
+              devoured: 0            
+
+          },
+          {
+              name: "Bacon-a-tor",
+              devoured: 0
+          }])
+
+    })
   },
   down: function(queryInterface, Sequelize) {
-    return queryInterface.dropTable('burgers');
+    return queryInterface.dropTable('Customers');
   }
 };

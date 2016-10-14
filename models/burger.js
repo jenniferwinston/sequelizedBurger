@@ -9,7 +9,7 @@ module.exports = function(sequelize, DataTypes) {
     devoured: { 
       allowNull: false,
       type: DataTypes.INTEGER
-  }, {
+  },
 
     classMethods: {
       associate: function(models) {
