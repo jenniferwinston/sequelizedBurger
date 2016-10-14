@@ -5,7 +5,7 @@ var methodOverride = require('method-override');
 var bodyParser = require('body-parser');
 var express = require('express');
 var app = express();
-var routes = require('./controllers/burgers_controller.js');
+var controller = require('./controllers/burgers_controller.js');
 var sequelize = require('sequelize');
 
 
@@ -22,7 +22,10 @@ app.engine('handlebars', exphbs({defaultLayout: 'main'}));
 app.set('view engine', 'handlebars');
 
 
-app.use('/', routes);
+app.use('/', function(req, res){
+	var object = { cheese: true };
+	res.render('index', object);
+});
 
 
 

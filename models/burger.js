@@ -1,30 +1,22 @@
-
 'use strict';
+module.exports = function(sequelize, DataTypes) {
+  var Burgers = sequelize.define('Burgers', {
+    
+    name:{ 
+      allowNull: false,
+      type: DataTypes.STRING
+    },
+    devoured: { 
+      allowNull: false,
+      type: DataTypes.INTEGER
+  }, {
 
-module.exports = function(sequelize, Datatypes) {
-
-	var Burgers = sequelize.define('Burgers', {
-			id: {
-				type: DataTypes.INTEGER,
-				autoIncrememt: true,
-				primaryKey: true
-			},
-			name: {
-				allowNull: false,
-				type: DataTypes.STRING
-			},
-			devoured: {
-				allowNull: false,
-				type: DataTypes.BOOLEAN
-			}
-	},
-		{
-			underscored: true,
-			classMethods: {
-					associate: function(models){
-						Burgers.belongsTo(models.Customers, { foreignKey: 'customer_id'});
-					}
-			}
-		});
-	return Burgers;
-}
+    classMethods: {
+      associate: function(models) {
+        // associations can be defined here
+        Burgers.belongsTo(models.Customers, { foreignKey: 'customer_id'});
+      }
+    }
+  });
+  return Burgers;
+};
