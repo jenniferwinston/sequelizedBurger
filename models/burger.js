@@ -2,7 +2,7 @@
 
 'use strict';
 module.exports = function(sequelize, DataTypes) {
-  var Burgers = sequelize.define('Burgers', {
+  var Burger = sequelize.define('Burger', {
     
     burger_name:{ 
       allowNull: false,
@@ -16,9 +16,9 @@ module.exports = function(sequelize, DataTypes) {
     classMethods: {
       associate: function(models) {
         // associations can be defined here
-        Burgers.belongsTo(models.Customers, { foreignKey: 'customer_id'});
+        Burger.hasOne(models.Customer);
       }
     }
   });
-  return Burgers;
+  return Burger;
 };

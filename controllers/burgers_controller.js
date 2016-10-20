@@ -1,44 +1,52 @@
-"use strict";
+var express = require('express');
+var router = express.Router();
 
-var models = require('../models');
-var sequelizeConnection = models.sequelize;
+var Burger = require('../models/')["Burger"];
+var Customer = require('../models/')["Customer"];
 
-//set foriegn key check to 0 to drop table
-sequelizeConnection.query('SET FOREIGN_KEY_CHECKS = 0')
 
-//drop the table
-.then(function() {
-	return sequelizeConnection.sync({force:true});
-})
+router.get('/', function(req,res) {
+	res.redirect('/burgers')
+});
 
-//create burger entry
-.then(function(){
+// get route, edited to match sequelize
+router.get('/burgers', function(req,res) {
 
-		return models.Burger.create(
-		{
-			name: 'Bacon Burger',
-			User: {
-				name: 'Jennifer'
-			}
-		},
-		{
-			include: [models.User]
-		});
-})
+	Burger.findAll({include:{model: Customer}})
+	.then(function(burger_data){
+		console.log(burger_data);
+		// into the main index, updating the page
+		return res.render('index', {burger_data})
+	})
+});
 
-.then(function(){
-	return models.Burger.create(
-	{
-		name: 'Veggie Burger',
-		User: {
-			name: 'George'
-		}
-	},
-	{
-		include: [models.User]
+// post route to create burgers
+router.post('/burgers/create', function(req, res) {
+	Burger.create({burger_name: req.body.burger_name})
+	.then(function(newBurger){
+		console.log(newBurger);
+		res.redirect('/');
+	});
+});
+
+// put route to devour a burger
+router.put('/burgers/update', function(req,res){
+	// update one of the burgers
+	Customer.create({customer: req.body.customer})
+	.then(function(theCustomer){
+		return Burger.findOne({where:{id: req.body.burger_id}})
+		.then(function(theBurger){
+			return theBurger.setCustomer(theCustomer)
+			.then(function(){
+				return theBurger.updateAttributes({
+					devoured: true
+				}).then(function(){
+					return res.redirect('/');
+				})
+			})
+		})
 	})
 })
-.then(function(){
-	console.log("Completed");
-});
+
+module.exports = router;
 

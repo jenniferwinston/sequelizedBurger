@@ -2,7 +2,7 @@
 
 'use strict';
 
-var Burgers = require('../models')['Burgers'];
+
 module.exports = {
   up: function(queryInterface, Sequelize) {
     return queryInterface.createTable('Burgers', {
@@ -12,13 +12,13 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      name: {
+      burger_name: {
         allowNull: false,
         type: Sequelize.STRING
       },
       devoured: {
         allowNull: false,
-        type: Sequelize.INTEGER
+        type: Sequelize.BOOLEAN
       },
       createdAt: {
         allowNull: false,
@@ -44,6 +44,6 @@ module.exports = {
     })
   },
   down: function(queryInterface, Sequelize) {
-    return queryInterface.dropTable('Customers');
+    return queryInterface.dropTable('Burgers');
   }
 };
