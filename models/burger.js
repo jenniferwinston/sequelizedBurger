@@ -1,14 +1,16 @@
+// give devoured a default of false
+
 'use strict';
 module.exports = function(sequelize, DataTypes) {
   var Burgers = sequelize.define('Burgers', {
     
-    name:{ 
+    burger_name:{ 
       allowNull: false,
       type: DataTypes.STRING
     },
     devoured: { 
       allowNull: false,
-      type: DataTypes.INTEGER
+      type: DataTypes.BOOLEAN
   },
 
     classMethods: {

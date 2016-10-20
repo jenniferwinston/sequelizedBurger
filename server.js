@@ -8,10 +8,8 @@ var app = express();
 var controller = require('./controllers/burgers_controller.js');
 var sequelize = require('sequelize');
 
-var customers = require('./models')['customers'];
-var Burgers = require('./models')['Burgers'];
-customers.sync();
-Burgers.sync();
+var models = require('./models');
+models.sequelize.sync();
 
 
 //Serve static content for the app from the "public" directory in the application directory.
@@ -26,10 +24,9 @@ app.engine('handlebars', exphbs({defaultLayout: 'main'}));
 app.set('view engine', 'handlebars');
 
 
-app.use('/', function(req, res){
-	var object = { cheese: true };
-	res.render('index', object);
-});
+app.use('/', routes);
+app.use('/update', routes);
+app.use('/create', routes);
 
 
 

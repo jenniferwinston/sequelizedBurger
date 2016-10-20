@@ -1,3 +1,5 @@
+// running this will create the burger table; undoing will delete it
+
 'use strict';
 
 var Burgers = require('../models')['Burgers'];
